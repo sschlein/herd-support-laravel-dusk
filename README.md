@@ -1,61 +1,220 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Dusk Test Application
+
+A demo Laravel 12 application showcasing browser testing with **Laravel Dusk** and **Laravel Herd**. This repo provides a working example for testing Dusk compatibility with Herd setups.
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel" alt="Laravel 12">
+  <img src="https://img.shields.io/badge/Dusk-8.3-4E56A6?style=for-the-badge" alt="Laravel Dusk">
+  <img src="https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS">
 </p>
 
-## About Laravel
+## 🚀 About This Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This is a minimal Laravel application built specifically to demonstrate and test Laravel Dusk browser testing functionality with Laravel Herd. It includes:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- ✅ **5 Browser Tests** covering navigation and form submission
+- 🎨 **Tailwind CSS 4** for modern, beautiful UI
+- 📝 **Contact Form** with validation
+- 🧪 **Full Dusk Setup** with ChromeDriver configured
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Perfect for support testing, learning Dusk, or as a starter template for browser testing.
 
-## Learning Laravel
+## 📋 Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **[Laravel Herd](https://herd.laravel.com)** installed
+- **PHP 8.2+** (included with Herd)
+- **Composer** (included with Herd)
+- **Node.js 18+** and npm
+- **Google Chrome** browser
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠️ Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Clone the Repository
 
-## Laravel Sponsors
+```bash
+git clone <your-repo-url> dusk-tests
+cd dusk-tests
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Install Dependencies
 
-### Premium Partners
+```bash
+composer install
+npm install
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 3. Configure Environment
 
-## Contributing
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+The `.env` file is already configured with:
+```ini
+APP_URL=http://dusk-tests.test
+DB_CONNECTION=sqlite
+```
 
-## Code of Conduct
+### 4. Create Database
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+touch database/database.sqlite
+php artisan migrate
+```
 
-## Security Vulnerabilities
+### 5. Build Frontend Assets
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+npm run build
+```
 
-## License
+### 6. Configure Laravel Herd
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Open **Laravel Herd** and:
+1. Click "Add Path" or "Park Directory"
+2. Select the parent directory containing your `dusk-tests` folder
+3. The site should now be accessible at `http://dusk-tests.test`
+
+Verify by visiting: **http://dusk-tests.test** in your browser
+
+### 7. Install ChromeDriver
+
+Laravel Dusk requires ChromeDriver to match your Chrome version:
+
+```bash
+php artisan dusk:chrome-driver --detect
+```
+
+This will automatically download the correct ChromeDriver version for your installed Chrome browser.
+
+## 🧪 Running Dusk Tests
+
+Run all browser tests:
+
+```bash
+php artisan dusk
+```
+
+Expected output:
+```
+PASS  Tests\Browser\ExampleTest
+✓ can visit home page
+✓ can visit about page
+✓ can navigate between pages
+✓ can view contact form
+✓ can submit contact form
+
+Tests:  5 passed (15 assertions)
+```
+
+### Run Tests in Headed Mode
+
+To see the browser while tests run (useful for debugging):
+
+```bash
+php artisan dusk --without-tty
+```
+
+## 📁 Project Structure
+
+```
+dusk-tests/
+├── routes/web.php              # Application routes
+├── resources/views/            # Blade templates
+│   ├── welcome.blade.php       # Home page
+│   ├── about.blade.php         # About page
+│   ├── contact.blade.php       # Contact form
+│   └── contact-success.blade.php
+├── tests/
+│   ├── Browser/
+│   │   └── ExampleTest.php     # 5 Dusk browser tests
+│   └── DuskTestCase.php        # Dusk test configuration
+└── public/build/               # Compiled assets
+```
+
+## 🧪 Included Tests
+
+The application includes 5 browser tests in `tests/Browser/ExampleTest.php`:
+
+1. **can visit home page** - Verifies homepage loads with "Laravel" text
+2. **can visit about page** - Checks about page content
+3. **can navigate between pages** - Tests navigation links work
+4. **can view contact form** - Verifies form fields are present
+5. **can submit contact form** - Tests form submission and success message
+
+## 🎨 Features
+
+- **Modern UI** with Tailwind CSS 4 and gradient backgrounds
+- **Responsive Design** that works on all screen sizes
+- **Form Validation** on the contact form
+- **Navigation System** across all pages
+- **Success Page** with user feedback after form submission
+
+## 🐛 Troubleshooting
+
+### ChromeDriver Version Mismatch
+
+If you see errors about Chrome/ChromeDriver version mismatches:
+
+```bash
+php artisan dusk:chrome-driver --detect
+```
+
+This downloads the correct ChromeDriver for your Chrome version.
+
+### Site Not Accessible
+
+If `dusk-tests.test` doesn't load:
+
+1. Check Laravel Herd is running (menu bar icon)
+2. Verify the project directory is parked in Herd
+3. Try restarting Herd
+4. Check permissions: `chmod -R 755 storage bootstrap/cache`
+
+### Tests Failing
+
+1. **Ensure assets are built:** `npm run build`
+2. **Clear Laravel cache:** `php artisan config:clear`
+3. **Check ChromeDriver:** `php artisan dusk:chrome-driver --detect`
+4. **Verify site loads:** Open http://dusk-tests.test in browser
+5. **Check Herd is serving the site:** `herd list`
+
+### Port 9515 Already in Use
+
+If ChromeDriver port is occupied:
+
+```bash
+lsof -ti:9515 | xargs kill -9
+```
+
+### Fresh Start
+
+To completely reset the application:
+
+```bash
+rm -rf vendor node_modules public/build
+composer install
+npm install
+npm run build
+php artisan dusk:chrome-driver --detect
+```
+
+## 📚 Learn More
+
+- **[Laravel Dusk Documentation](https://laravel.com/docs/dusk)**
+- **[Laravel Herd](https://herd.laravel.com)**
+- **[Tailwind CSS](https://tailwindcss.com)**
+- **[Laravel Documentation](https://laravel.com/docs)**
+
+## 🤝 Contributing
+
+Found an issue or want to improve this example? PRs are welcome!
+
+## 📝 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+Built with ❤️ for Laravel Herd customer support and testing.
